@@ -24,18 +24,18 @@ jobs:
           sed -i 's/vvvv/${{ github.ref_name }}/g' ./install.sh
           sed -i 's/vvvv/${{ github.ref_name }}/g' ./main.go
           
-          env GOOS=linux GOARCH=386 go build -o ./bin/bookmark-cd_${{ github.ref_name }}_i386
-          env GOOS=linux GOARCH=amd64 go build -o ./bin/bookmark-cd_${{ github.ref_name }}_amd64
-          env GOOS=linux GOARCH=arm go build -o ./bin/bookmark-cd_${{ github.ref_name }}_arm
-          env GOOS=linux GOARCH=arm64 go build -o ./bin/bookmark-cd_${{ github.ref_name }}_arm64
+          env GOOS=linux GOARCH=386 go build -o ./bin/mono-cd_${{ github.ref_name }}_i386
+          env GOOS=linux GOARCH=amd64 go build -o ./bin/mono-cd_${{ github.ref_name }}_amd64
+          env GOOS=linux GOARCH=arm go build -o ./bin/mono-cd_${{ github.ref_name }}_arm
+          env GOOS=linux GOARCH=arm64 go build -o ./bin/mono-cd_${{ github.ref_name }}_arm64
 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ github.ref_name }}
           files: |
-            ./bin/bookmark-cd_${{ github.ref_name }}_i386
-            ./bin/bookmark-cd_${{ github.ref_name }}_amd64
-            ./bin/bookmark-cd_${{ github.ref_name }}_arm
-            ./bin/bookmark-cd_${{ github.ref_name }}_arm64
+            ./bin/mono-cd_${{ github.ref_name }}_i386
+            ./bin/mono-cd_${{ github.ref_name }}_amd64
+            ./bin/mono-cd_${{ github.ref_name }}_arm
+            ./bin/mono-cd_${{ github.ref_name }}_arm64
             ./install.sh
