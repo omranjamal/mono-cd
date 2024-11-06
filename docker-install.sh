@@ -36,39 +36,17 @@ update_permissions() {
 }
 
 add_to_shell() {
-  if [ -f "$HOME/.bashrc" ]; then
-    echo "> detected: ~/.bashrc"
-    echo "> shell function: ⚡ Adding to ~/.bashrc"
-    $INSTALL_PATH/mono-cd --install "$HOME/.bashrc"
-
-    echo   "\e[0m"
-    echo   "    🚀 Run this, or re-start your bash terminal:"
-    echo   "       $ \e[1msource ~/.bashrc\e[0m"
-    echo   "\e[2m"
-  fi
-
-  if [ -f "$HOME/.zshrc" ]; then
-    echo "> detected: ~/.zshrc"
-    echo "> shell function: ⚡ Adding to ~/.zshrc"
-    $INSTALL_PATH/mono-cd --install "$HOME/.zshrc"
-
-    echo   "\e[0m"
-    echo   "    🚀 Run this, or re-start your zsh terminal:"
-    echo   "       $ \e[1msource ~/.zshrc\e[0m"
-    echo   "\e[2m"
-  fi
+  touch "$HOME/.profile"
+  echo "> shell function: ⚡ Adding to ~/.profile"
+  $INSTALL_PATH/mono-cd --install "$HOME/.profile"
 }
 
 completed() {
   return 0
 }
 
-printf "\e[2m"
-
 create_directory && \
   download && \
   update_permissions && \
   add_to_shell && \
   completed
-
-printf "\e[0m"
