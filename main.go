@@ -28,7 +28,7 @@ func main() {
 		} else if arg == "--install" {
 			isInstall = 1
 		} else if arg == "--version" || arg == "-v" {
-			os.Stderr.WriteString("bookmark-cd " + version + "\n")
+			os.Stderr.WriteString("mono-cd " + version + "\n")
 			return
 		} else if arg == "--help" || arg == "-h" {
 			os.Stderr.WriteString(mcd.HelpText + "\n")
