@@ -22,6 +22,6 @@ type State struct {
 type model struct {
 	searchInput textinput.Model
 	searchText  string
-	candidates  []Candidate // bookmarks
+	candidates  []Candidate // directories of interest
 	state       *State
 }

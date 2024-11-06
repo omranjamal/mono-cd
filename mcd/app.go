@@ -54,11 +54,11 @@ func (m model) candidatesView() string {
 	for i, fc := range *m.state.filteredCandidates {
 		name := nameStyle.Render(fc.candidate.name)
 
-		bookmarkPath := pathStyle.Render(
+		directoryPath := pathStyle.Render(
 			strings.Replace(fc.candidate.path, os.Getenv("HOME"), "~", 1),
 		)
 
-		row := fmt.Sprintf("%s %s\n", name, bookmarkPath)
+		row := fmt.Sprintf("%s %s\n", name, directoryPath)
 
 		if i == current {
 			buf.WriteString("> " + row)
