@@ -1,4 +1,4 @@
-package bcd
+package mcd
 
 import "github.com/charmbracelet/bubbles/textinput"
 

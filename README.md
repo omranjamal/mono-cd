@@ -1,33 +1,33 @@
-# bookmark-cd
+# mono-cd
 
-![GitHub Release Date](https://img.shields.io/github/release-date/omranjamal/bookmark-cd)
-![GitHub Release](https://img.shields.io/github/v/release/omranjamal/bookmark-cd)
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/omranjamal/bookmark-cd)
+![GitHub Release Date](https://img.shields.io/github/release-date/omranjamal/mono-cd)
+![GitHub Release](https://img.shields.io/github/v/release/omranjamal/mono-cd)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/omranjamal/mono-cd)
 
 
-> The fastest way to `cd` into your folder bookmarks that you create on your file manager.
+> The fastest way to `cd` into a JavaScript monorepo directory of interest
 
-![DEMO](https://raw.githubusercontent.com/omranjamal/bookmark-cd/refs/heads/static/demo.gif)
+![DEMO](https://raw.githubusercontent.com/omranjamal/mono-cd/refs/heads/static/demo.gif)
 
 ## Features
 
-1. Interactive
-2. Fuzzy search
-3. Non interactive mode for even quicker `cd`
-4. Works with:
-   - [nautilus](https://apps.gnome.org/Nautilus/)
-   - [thunar](https://docs.xfce.org/xfce/thunar/start)
-   - [nemo](https://github.com/linuxmint/nemo)
-   - [caja](https://wiki.mate-desktop.org/mate-desktop/applications/caja/)
+1. `cd` into any of the folders in a JavaScript monorepo
+2. Support for both interactive and non-interactive modes
+3. Support for
+   1. [pnpm workspaces](https://pnpm.io/workspaces)
+   2. [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces/)
+   3. [yarn workspaces](https://yarnpkg.com/features/workspaces)
+   4. Custom directories via `.monocdrc.json`
+4. Works inside Docker containers. (Tested with Alpine and Debian images)
 
 ## Usage
 
 ```bash
 # interactive mode:
-bcd
+mcd
 
 # non interactive `cd` if only one match is present.
-bcd [search]
+mcd [search]
 ```
 
 - `Up` / `Down` to select a target bookmark.
@@ -37,46 +37,46 @@ bcd [search]
 Make sure you have `curl` installed on your system
 
 ```bash
-curl -sL https://github.com/omranjamal/bookmark-cd/releases/latest/download/install.sh -o - | sh -
+curl -sL https://github.com/omranjamal/mono-cd/releases/latest/download/install.sh -o - | sh -
 ```
 
 ### Manual Installation
 
 ```bash
 # Create installation directory
-mkdir -p ~/.local/share/omranjamal/bookmark-cd
+mkdir -p ~/.local/share/omranjamal/mono-cd
 
 # Download the binary (check releases page for all available binaries)
-curl -L -o ~/.local/share/omranjamal/bookmark-cd/bookmark-cd https://github.com/omranjamal/bookmark-cd/releases/latest/download/bookmark-cd_v1.1.0_amd64
+curl -L -o ~/.local/share/omranjamal/mono-cd/mono-cd https://github.com/omranjamal/mono-cd/releases/latest/download/mono-cd_v1.1.0_amd64
 
 # Add execution permissions
-chmod +x ~/.local/share/omranjamal/bookmark-cd/bookmark-cd
+chmod +x ~/.local/share/omranjamal/mono-cd/mono-cd
 
 # Add to shell
-~/.local/share/omranjamal/bookmark-cd/bookmark-cd --install ~/.bashrc
+~/.local/share/omranjamal/mono-cd/mono-cd --install ~/.bashrc
 ```
 
 ### Setting Different Alias
 
 You can either change the function name in your
-`~/.bashrc` / `~/.zshrc` file from `bcd` to something
+`~/.bashrc` / `~/.zshrc` file from `mcd` to something
 else.
 
 OR, you could add the alias in Step 4 from above by passing
 as the last argument.
 
 ```bash
-~/.local/share/omranjamal/bookmark-cd/bookmark-cd --install ~/.bashrc bookcd
+~/.local/share/omranjamal/mono-cd/mono-cd --install ~/.bashrc monocd
 ```
 
-`bookcd` being the different alias that you want.
+`monocd` being the different alias that you want.
 
 ## Development
 
 ```bash
-git clone git@github.com:omranjamal/bookmark-cd.git
+git clone git@github.com:omranjamal/mono-cd.git
 
-cd ./bookmark-cd
+cd ./mono-cd
 
 go get
 go run main.go

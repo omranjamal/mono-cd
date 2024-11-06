@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	bcd "github.com/omranjamal/bookmark-cd/bcd"
+	mcd "github.com/omranjamal/mono-cd/mcd"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,12 +12,12 @@ import (
 var version = "vvvv"
 
 func main() {
-	bcd.SetupTerminal()
+	mcd.SetupTerminal()
 
 	isPrintShellScript := 0
 	isInstall := 0
 
-	alias := "bcd"
+	alias := "mcd"
 	shellFile := ""
 
 	search := make([]string, 0, 8)
@@ -31,7 +31,7 @@ func main() {
 			os.Stderr.WriteString("bookmark-cd " + version + "\n")
 			return
 		} else if arg == "--help" || arg == "-h" {
-			os.Stderr.WriteString(bcd.HelpText + "\n")
+			os.Stderr.WriteString(mcd.HelpText + "\n")
 			return
 		} else {
 			if isPrintShellScript == 1 {
@@ -66,7 +66,7 @@ func main() {
 			os.Exit(1)
 			return
 		} else {
-			bcd.Install(shellFile, alias)
+			mcd.Install(shellFile, alias)
 			return
 		}
 	}
@@ -76,8 +76,8 @@ func main() {
 			os.Stdout,
 			"%s\n",
 			strings.Replace(
-				bcd.ShellFunction,
-				"bcd",
+				mcd.ShellFunction,
+				"mcd",
 				alias,
 				1,
 			),
@@ -87,5 +87,5 @@ func main() {
 	}
 
 	initialSearchText := strings.Join(search, " ")
-	bcd.Run(initialSearchText)
+	mcd.Run(initialSearchText)
 }

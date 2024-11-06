@@ -20,38 +20,27 @@ else
   exit
 fi
 
-URL="https://github.com/omranjamal/bookmark-cd/releases/latest/download/bookmark-cd_${V}_${DOWNLOAD_ARCH}"
-INSTALL_PATH="$HOME/.local/share/omranjamal/bookmark-cd"
-
-check_bookmarks_file() {
-  if [ -f "$HOME/.config/gtk-3.0/bookmarks" ] ; then
-    echo "> check: ✅ system has gtk-3.0 bookmarks file"
-    return 0
-  else
-    echo "> check: FAILED: system does not have gtk-3.0 bookmarks file"
-  fi
-
-  return 1
-}
+URL="https://github.com/omranjamal/mono-cd/releases/latest/download/mono-cd_${V}_${DOWNLOAD_ARCH}"
+INSTALL_PATH="$HOME/.local/share/omranjamal/mono-cd"
 
 create_directory() {
   mkdir -p "$INSTALL_PATH" && return 0
 }
 
 download() {
-  echo "> download: 📥 downloading bookmark-cd_${V}_${DOWNLOAD_ARCH}" && \
-      curl -s -L -o "$INSTALL_PATH/bookmark-cd" "$URL" && return 0
+  echo "> download: 📥 downloading mono-cd_${V}_${DOWNLOAD_ARCH}" && \
+      curl -s -L -o "$INSTALL_PATH/mono-cd" "$URL" && return 0
 }
 
 update_permissions() {
-  echo "> permissions: 💪 setting execution permission" && chmod +x "$INSTALL_PATH/bookmark-cd" && return 0
+  echo "> permissions: 💪 setting execution permission" && chmod +x "$INSTALL_PATH/mono-cd" && return 0
 }
 
 add_to_shell() {
   if [ -f "$HOME/.bashrc" ]; then
     echo "> detected: ~/.bashrc"
     echo "> shell function: ⚡ Adding to ~/.bashrc"
-    $INSTALL_PATH/bookmark-cd --install "$HOME/.bashrc"
+    $INSTALL_PATH/mono-cd --install "$HOME/.bashrc"
 
     echo   "\e[0m"
     echo   "    🚀 Run this, or re-start your bash terminal:"
@@ -62,7 +51,7 @@ add_to_shell() {
   if [ -f "$HOME/.zshrc" ]; then
     echo "> detected: ~/.zshrc"
     echo "> shell function: ⚡ Adding to ~/.zshrc"
-    $INSTALL_PATH/bookmark-cd --install "$HOME/.zshrc"
+    $INSTALL_PATH/mono-cd --install "$HOME/.zshrc"
 
     echo   "\e[0m"
     echo   "    🚀 Run this, or re-start your zsh terminal:"
@@ -77,8 +66,7 @@ completed() {
 
 printf "\e[2m"
 
-check_bookmarks_file && \
-  create_directory && \
+create_directory && \
   download && \
   update_permissions && \
   add_to_shell && \

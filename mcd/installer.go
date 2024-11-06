@@ -1,4 +1,4 @@
-package bcd
+package mcd
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 func Install(filePath string, alias string) {
 	fileDir := filepath.Dir(filePath)
 	fileName := filepath.Base(filePath)
-	backupFileName := fmt.Sprintf("%s.%d.bcd-install-backup", fileName, time.Now().UnixMilli())
+	backupFileName := fmt.Sprintf("%s.%d.mcd-install-backup", fileName, time.Now().UnixMilli())
 	backupFilePath := filepath.Join(fileDir, backupFileName)
 
 	copyError := copyFile(filePath, backupFilePath)
@@ -35,10 +35,10 @@ func Install(filePath string, alias string) {
 	ended := false
 
 	for _, line := range lines {
-		if !started && strings.TrimSpace(line) == "# start: bookmark-cd" {
+		if !started && strings.TrimSpace(line) == "# start: mono-cd" {
 			started = true
 			continue
-		} else if started && strings.TrimSpace(line) == "# end: bookmark-cd" {
+		} else if started && strings.TrimSpace(line) == "# end: mono-cd" {
 			ended = true
 			continue
 		}
@@ -49,7 +49,7 @@ func Install(filePath string, alias string) {
 	}
 
 	shellFunctionLines := strings.Split(
-		strings.Replace(ShellFunction, "bcd", alias, 1),
+		strings.Replace(ShellFunction, "mcd", alias, 1),
 		"\n",
 	)
 
