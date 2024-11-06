@@ -22,42 +22,15 @@ type PnpmWorkspacesPackages struct {
 	Packages []string `json:"packages"`
 }
 
-type MonocdrcInclude struct {
-	Include []string `json:"include"`
+type MonocdrcWorkspaces struct {
+	Workspaces []string `json:"workspaces"`
+	Exclude    []string `json:"exclude"`
 }
 
 type WalkFunc func(path string)
 
 func Walk(root string, absolutePath string, excludeGlobs []glob.Glob, negativeGlobs []glob.Glob, positiveGlobs []glob.Glob, candidates []Candidate) []Candidate {
-	isNegativeMatched := false
-	isPositiveMatched := false
-
 	p := strings.Replace(absolutePath, root+"/", "", 1)
-
-	for _, g := range negativeGlobs {
-		isNegativeMatched = g.Match(p)
-
-		if isNegativeMatched {
-			break
-		}
-	}
-
-	if !isNegativeMatched {
-		for _, g := range positiveGlobs {
-			isPositiveMatched = g.Match(p)
-
-			if isPositiveMatched {
-				break
-			}
-		}
-	}
-
-	if !isNegativeMatched && isPositiveMatched {
-		candidates = append(candidates, Candidate{
-			name: p,
-			path: absolutePath,
-		})
-	}
 
 	isExcludeMatched := false
 
@@ -70,6 +43,34 @@ func Walk(root string, absolutePath string, excludeGlobs []glob.Glob, negativeGl
 	}
 
 	if !isExcludeMatched {
+		isNegativeMatched := false
+		isPositiveMatched := false
+
+		for _, g := range negativeGlobs {
+			isNegativeMatched = g.Match(p)
+
+			if isNegativeMatched {
+				break
+			}
+		}
+
+		if !isNegativeMatched {
+			for _, g := range positiveGlobs {
+				isPositiveMatched = g.Match(p)
+
+				if isPositiveMatched {
+					break
+				}
+			}
+		}
+
+		if !isNegativeMatched && isPositiveMatched {
+			candidates = append(candidates, Candidate{
+				name: p,
+				path: absolutePath,
+			})
+		}
+
 		entries, _ := os.ReadDir(absolutePath)
 
 		for _, entry := range entries {
@@ -96,6 +97,20 @@ func getCandidates() []Candidate {
 	currentDirectory := workingDir
 	workspacePath := currentDirectory
 	workspaceGlobs := make([]string, 0, 32)
+
+	excludedPaths := make([]string, 0, 32)
+
+	excludedPaths = append(
+		excludedPaths,
+		"node_modules",
+		"**/node_modules",
+		".turbo",
+		"**/.turbo",
+		".next",
+		"**/.next",
+		".vercel",
+		"**/.vercel",
+	)
 
 	workspaceGlobs = append(workspaceGlobs)
 
@@ -179,11 +194,13 @@ func getCandidates() []Candidate {
 				return candidates
 			}
 
-			monocdrcJSONData := MonocdrcInclude{}
+			monocdrcJSONData := MonocdrcWorkspaces{}
 			json.Unmarshal(monocdrcJSONPathContents, &monocdrcJSONData)
 
+			excludedPaths = append(excludedPaths, monocdrcJSONData.Exclude...)
+
 			workspacePath = currentDirectory
-			workspaceGlobs = append(workspaceGlobs, monocdrcJSONData.Include...)
+			workspaceGlobs = append(workspaceGlobs, monocdrcJSONData.Workspaces...)
 			break
 		}
 
@@ -199,19 +216,14 @@ func getCandidates() []Candidate {
 	negativeGlobs := make([]glob.Glob, 0, len(workspaceGlobs))
 	positiveGlobs := make([]glob.Glob, 0, len(workspaceGlobs))
 
-	excludeGlobs := make([]glob.Glob, 0, len(workspaceGlobs))
+	excludeGlobs := make([]glob.Glob, 0, len(excludedPaths))
 
-	excludeGlobs = append(
-		excludeGlobs,
-		glob.MustCompile("node_modules", '/'),
-		glob.MustCompile("**/node_modules", '/'),
-		glob.MustCompile(".turbo", '/'),
-		glob.MustCompile("**/.turbo", '/'),
-		glob.MustCompile(".next", '/'),
-		glob.MustCompile("**/.next", '/'),
-		glob.MustCompile(".vercel", '/'),
-		glob.MustCompile("**/.vercel", '/'),
-	)
+	for _, excludedPath := range excludedPaths {
+		excludeGlobs = append(
+			excludeGlobs,
+			glob.MustCompile(excludedPath, '/'),
+		)
+	}
 
 	for _, g := range workspaceGlobs {
 		firstCharacter := g[0]
