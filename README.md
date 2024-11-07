@@ -20,6 +20,12 @@ The quickest way to `cd` into a directory of interest inside a (JavaScript) mono
 4. Support for non-javascript monorepos, also via `.monocdrc.json`
 5. Works inside Docker containers. (Tested with Alpine and Debian images)
 
+## Installation
+
+```bash
+wget -qO - https://github.com/omranjamal/mono-cd/releases/latest/download/install.sh | sh -
+```
+
 ## Usage
 
 ```bash
@@ -34,7 +40,7 @@ mcd [search]
 - Starting typing to filter list of directories.
 
 
-### The `.monocdrc.json` File
+### The `.monocdrc.json` File (Optional)
 
 This is a configuration file which you place at the root of your monorepo.
 You can use to include workspaces or exclude workspaces from being searched
@@ -53,13 +59,6 @@ Example
       "dont_even_try/to_match_in_this_folder"
    ]
 }
-```
-
-
-## Installation
-
-```bash
-wget -qO - https://github.com/omranjamal/mono-cd/releases/latest/download/install.sh | sh -
 ```
 
 ## Install Inside Docker
@@ -84,7 +83,7 @@ bash -l   # ideal for debian images
 sh -l     # works across most images, ideal for alpine images
 ```
 
-### Manual Installation
+## Manual Installation
 
 ```bash
 # Create installation directory
