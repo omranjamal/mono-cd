@@ -33,6 +33,29 @@ mcd [search]
 - `Up` / `Down` to select a directory.
 - Starting typing to filter list of directories.
 
+
+### The `.monocdrc.json` File
+
+This is a configuration file which you place at the root of your monorepo.
+You can use to include workspaces or exclude workspaces from being searched
+for workspaces.
+
+Example
+
+```json
+{
+   "$schema": "https://raw.githubusercontent.com/omranjamal/mono-cd/refs/heads/main/monocdrc-schema.json",
+   "workspaces": [
+      "another_folder/*",
+      "!another_folder/but_not_this_one"
+   ],
+   "exclude": [
+      "dont_even_try/to_match_in_this_folder"
+   ]
+}
+```
+
+
 ## Installation
 
 ```bash
@@ -68,7 +91,7 @@ sh -l     # works across most images, ideal for alpine images
 mkdir -p ~/.local/share/omranjamal/mono-cd
 
 # Download the binary (check releases page for all available binaries)
-curl -O ~/.local/share/omranjamal/mono-cd/mono-cd https://github.com/omranjamal/mono-cd/releases/latest/download/mono_amd64
+wget -O ~/.local/share/omranjamal/mono-cd/mono-cd https://github.com/omranjamal/mono-cd/releases/latest/download/mono_amd64
 
 # Add execution permissions
 chmod +x ~/.local/share/omranjamal/mono-cd/mono-cd
