@@ -4,7 +4,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/omranjamal/mono-cd)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/omranjamal/mono-cd)
 
-> The quickest way to `cd` into a directory of interest inside a (JavaScript) monorepo.
+The quickest way to `cd` into a directory of interest inside a (JavaScript) monorepo.
 
 ![DEMO](https://raw.githubusercontent.com/omranjamal/mono-cd/refs/heads/static/demo.gif)
 
