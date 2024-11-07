@@ -4,7 +4,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/omranjamal/mono-cd)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/omranjamal/mono-cd)
 
-The quickest way to `cd` into a workspace folder inside a JavaScript monorepo. It's simpler than fzf, more predictable than zoxide (zi), perfect for JavaScript monorepos when cd-ing into monorepo workspace directories.
+The quickest way to `cd` into a workspace folder inside a JavaScript monorepo. It's simpler than [fzf](https://github.com/junegunn/fzf), more predictable than [zoxide](https://github.com/ajeetdsouza/zoxide) (`zi`), and specifically created for JavaScript monorepos.
 
 ![DEMO](https://raw.githubusercontent.com/omranjamal/mono-cd/refs/heads/static/demo.gif)
 
