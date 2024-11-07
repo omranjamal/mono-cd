@@ -128,3 +128,10 @@ go run main.go
 ## License
 
 MIT
+
+## Related
+
+`mono-cd` is actually based on
+[bookmark-cd](https://github.com/omranjamal/bookmark-cd)
+a similar project aimed at cd-ing into bookmarked folders
+a breeze.
