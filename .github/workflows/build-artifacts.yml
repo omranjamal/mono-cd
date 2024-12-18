@@ -24,7 +24,6 @@ jobs:
           sed -i 's/vvvv/${{ github.ref_name }}/g' ./main.go
 
           env GOOS=darwin GOARCH=amd64 go build -o ./bin/mono-cd_darwin_amd64
-          env GOOS=darwin GOARCH=arm go build -o ./bin/mono-cd_darwin_arm
           env GOOS=darwin GOARCH=arm64 go build -o ./bin/mono-cd_darwin_arm64
           
           env GOOS=linux GOARCH=386 go build -o ./bin/mono-cd_linux_i386
@@ -38,7 +37,6 @@ jobs:
           name: ${{ github.ref_name }}
           files: |
             ./bin/mono-cd_darwin_amd64
-            ./bin/mono-cd_darwin_arm
             ./bin/mono-cd_darwin_arm64
             
             ./bin/mono-cd_linux_i386
