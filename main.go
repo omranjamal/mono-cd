@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	mcd "github.com/omranjamal/mono-cd/mcd"
 	"log"
 	"os"
 	"path/filepath"
 	"strings"
+
+	mcd "github.com/omranjamal/mono-cd/mcd"
 )
 
 var version = "vvvv"

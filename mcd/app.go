@@ -3,12 +3,15 @@ package mcd
 import (
 	"bytes"
 	"fmt"
+	"log"
+	"math"
+	"os"
+	"strconv"
+	"strings"
+
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"log"
-	"os"
-	"strings"
 )
 
 func initModel(initialSearchText string) model {
@@ -33,6 +36,7 @@ func initModel(initialSearchText string) model {
 
 		state: &State{
 			selected:           false,
+			maxHeight:          4,
 			filteredCandidates: getFilteredCandidates(&candidates, initialSearchText),
 		},
 	}
@@ -48,24 +52,49 @@ var pathStyle = lipgloss.NewStyle().Faint(true)
 func (m model) candidatesView() string {
 	buf := bytes.NewBufferString("")
 
-	l := len(m.candidates)
-	current := m.state.cursor % l
+	filteredCandidates := *m.state.filteredCandidates
+	filteredCandidateCount := len(filteredCandidates)
 
-	for i, fc := range *m.state.filteredCandidates {
+	current := m.state.cursor
+
+	availableLines := m.state.maxHeight - 3
+	availableCandidates := len(m.candidates)
+
+	candidateRenderCount := int(math.Min(float64(availableLines), float64(availableCandidates)))
+
+	renderTillIndex := int(math.Min(float64(filteredCandidateCount), float64(current+candidateRenderCount/2)))
+	renderFromIndex := int(math.Max(0, float64(renderTillIndex-candidateRenderCount)))
+	renderTillIndex = renderFromIndex + candidateRenderCount
+
+	for i := range candidateRenderCount {
+		if renderFromIndex+i >= filteredCandidateCount {
+			buf.WriteString("\n")
+			continue
+		}
+
+		fc := filteredCandidates[renderFromIndex+i]
 		name := nameStyle.Render(fc.candidate.name)
 
 		directoryPath := pathStyle.Render(
 			strings.Replace(fc.candidate.path, os.Getenv("HOME"), "~", 1),
 		)
 
-		row := fmt.Sprintf("%s %s\n", name, directoryPath)
+		row := fmt.Sprintf("%s %s", name, directoryPath)
 
-		if i == current {
-			buf.WriteString("> " + row)
+		if renderFromIndex+i == current {
+			buf.WriteString("> " + row + "\n")
 		} else {
-			buf.WriteString("  " + row)
+			buf.WriteString("  " + row + "\n")
 		}
 
+	}
+
+	hiddenResultCountBelow := filteredCandidateCount - renderTillIndex
+
+	if hiddenResultCountBelow <= 0 {
+		buf.WriteString("\n")
+	} else {
+		buf.WriteString(pathStyle.Render(fmt.Sprintf("  -- %d more below (%d total results)", hiddenResultCountBelow, filteredCandidateCount)) + "\n")
 	}
 
 	return buf.String()
@@ -101,7 +130,7 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 		case tea.KeyDown:
 			m.state.cursor++
 
-			if m.state.cursor >= len(m.candidates) {
+			if m.state.cursor >= len(*m.state.filteredCandidates) {
 				m.state.cursor = 0
 			}
 
@@ -115,6 +144,20 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			return m, nil
+		}
+	case tea.WindowSizeMsg:
+		envHeight := os.Getenv("MONOCD_MAX_HEIGHT")
+
+		if envHeight == "" {
+			m.state.maxHeight = message.Height
+		} else {
+			envHeightInt, err := strconv.Atoi(envHeight)
+
+			if err != nil {
+				m.state.maxHeight = message.Height
+			} else {
+				m.state.maxHeight = envHeightInt
+			}
 		}
 	}
 

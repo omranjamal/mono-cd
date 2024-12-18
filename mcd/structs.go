@@ -13,9 +13,11 @@ type FilteredCandidate struct {
 }
 
 type State struct {
-	selected           bool
-	cursor             int
-	exited             bool
+	selected  bool
+	cursor    int
+	exited    bool
+	maxHeight int
+
 	filteredCandidates *[]FilteredCandidate
 }
 
@@ -23,5 +25,6 @@ type model struct {
 	searchInput textinput.Model
 	searchText  string
 	candidates  []Candidate // directories of interest
-	state       *State
+
+	state *State
 }
