@@ -14,6 +14,8 @@ elif [ "$REPORTED_ARCH" = "armv7l" ]; then
   DOWNLOAD_ARCH="arm"
 elif [ "$REPORTED_ARCH" = "aarch64" ]; then
   DOWNLOAD_ARCH="arm64"
+elif [ "$REPORTED_ARCH" = "arm64" ]; then
+  DOWNLOAD_ARCH="arm64"
 else
   echo "Unknown Architecture"
   exit
