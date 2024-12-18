@@ -39,6 +39,7 @@ mcd [search]
 
 - `Up` / `Down` to select a directory.
 - Starting typing to filter list of directories.
+- Vim keybindings are also available, i.e. `Ctrl`+`N`/`P` is save as `Up` and `Down`
 
 
 ### The `.monocdrc.json` File (Optional)
@@ -60,6 +61,16 @@ Example
       "dont_even_try/to_match_in_this_folder"
    ]
 }
+```
+
+### Limiting Height
+
+By default mono-cd will take us at most the number of rows available in your terminal, but if you
+want to override that to a fixed number of rows, set `MONOCD_MAX_HEIGHT` to a number such as:
+
+```bash
+# ~/.bashrc
+export MONOCD_MAX_HEIGHT=12
 ```
 
 ## Install Inside Docker
