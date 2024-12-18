@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+PLATFORM="$(uname | awk '{print tolower($0)}')"
 REPORTED_ARCH="$(uname -m)"
 
 if [ "$REPORTED_ARCH" = "x86_64" ]; then
@@ -21,7 +22,7 @@ else
   exit
 fi
 
-URL="https://github.com/omranjamal/mono-cd/releases/latest/download/mono-cd_${DOWNLOAD_ARCH}"
+URL="https://github.com/omranjamal/mono-cd/releases/latest/download/mono-cd_${PLATFORM}_${DOWNLOAD_ARCH}"
 INSTALL_PATH="$HOME/.local/share/omranjamal/mono-cd"
 
 create_directory() {
