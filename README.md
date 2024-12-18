@@ -19,11 +19,12 @@ The quickest way to `cd` into a workspace folder inside a JavaScript monorepo. I
    4. Custom directories via `.monocdrc.json`
 4. Support for non-javascript monorepos, also via `.monocdrc.json`
 5. Works inside Docker containers. (Tested with Alpine and Debian images)
+6. Tested on Linux & MacOS
 
 ## Installation
 
 ```bash
-wget -qO - https://github.com/omranjamal/mono-cd/releases/latest/download/install.sh | sh -
+curl -L "https://github.com/omranjamal/mono-cd/releases/latest/download/install.sh" | sh -
 ```
 
 ## Usage
