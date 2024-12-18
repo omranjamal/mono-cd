@@ -127,7 +127,7 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 
 			return m, tea.Quit
 
-		case tea.KeyDown:
+		case tea.KeyDown, tea.KeyCtrlP:
 			m.state.cursor++
 
 			if m.state.cursor >= len(*m.state.filteredCandidates) {
@@ -136,7 +136,7 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 
 			return m, nil
 
-		case tea.KeyUp:
+		case tea.KeyUp, tea.KeyCtrlN:
 			if m.state.cursor > 0 {
 				m.state.cursor--
 			} else {
