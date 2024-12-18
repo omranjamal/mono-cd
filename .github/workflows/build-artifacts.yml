@@ -22,29 +22,29 @@ jobs:
       - name: Build for Linux - ${{ github.ref_name }}
         run: |
           sed -i 's/vvvv/${{ github.ref_name }}/g' ./main.go
+
+          env GOOS=darwin GOARCH=amd64 go build -o ./bin/mono-cd_darwin_amd64
+          env GOOS=darwin GOARCH=arm go build -o ./bin/mono-cd_darwin_arm
+          env GOOS=darwin GOARCH=arm64 go build -o ./bin/mono-cd_darwin_arm64
           
           env GOOS=linux GOARCH=386 go build -o ./bin/mono-cd_linux_i386
           env GOOS=linux GOARCH=amd64 go build -o ./bin/mono-cd_linux_amd64
           env GOOS=linux GOARCH=arm go build -o ./bin/mono-cd_linux_arm
           env GOOS=linux GOARCH=arm64 go build -o ./bin/mono-cd_linux_arm64
 
-          env GOOS=darwin GOARCH=386 go build -o ./bin/mono-cd_darwin_i386
-          env GOOS=darwin GOARCH=amd64 go build -o ./bin/mono-cd_darwin_amd64
-          env GOOS=darwin GOARCH=arm go build -o ./bin/mono-cd_darwin_arm
-          env GOOS=darwin GOARCH=arm64 go build -o ./bin/mono-cd_darwin_arm64
-
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ github.ref_name }}
           files: |
+            ./bin/mono-cd_darwin_amd64
+            ./bin/mono-cd_darwin_arm
+            ./bin/mono-cd_darwin_arm64
+            
             ./bin/mono-cd_linux_i386
             ./bin/mono-cd_linux_amd64
             ./bin/mono-cd_linux_arm
             ./bin/mono-cd_linux_arm64
-            ./bin/mono-cd_darwin_i386
-            ./bin/mono-cd_darwin_amd64
-            ./bin/mono-cd_darwin_arm
-            ./bin/mono-cd_darwin_arm64
+
             ./install.sh
             ./docker-install.sh
