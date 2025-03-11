@@ -265,23 +265,34 @@ func getFilteredCandidates(candidates *[]Candidate, searchText string) *[]Filter
 	} else {
 		lowerSearchText := strings.ToLower(searchText)
 
-		for _, c := range *candidates {
-			rank := fuzzy.RankMatch(
-				lowerSearchText,
-				strings.ToLower(c.name),
-			)
-
-			if rank >= 0 {
-				filteredCandidates = append(filteredCandidates, FilteredCandidate{
-					candidate: c,
-					rank:      rank,
-				})
+		if lowerSearchText == "/" {
+			for _, c := range *candidates {
+				if c.name == "/" {
+					filteredCandidates = append(filteredCandidates, FilteredCandidate{
+						candidate: c,
+						rank:      1,
+					})
+				}
 			}
-		}
+		} else {
+			for _, c := range *candidates {
+				rank := fuzzy.RankMatch(
+					lowerSearchText,
+					strings.ToLower(c.name),
+				)
 
-		sort.Slice(filteredCandidates, func(i, j int) bool {
-			return filteredCandidates[i].rank > filteredCandidates[j].rank
-		})
+				if rank >= 0 {
+					filteredCandidates = append(filteredCandidates, FilteredCandidate{
+						candidate: c,
+						rank:      rank,
+					})
+				}
+			}
+
+			sort.Slice(filteredCandidates, func(i, j int) bool {
+				return filteredCandidates[i].rank > filteredCandidates[j].rank
+			})
+		}
 	}
 
 	return &filteredCandidates
