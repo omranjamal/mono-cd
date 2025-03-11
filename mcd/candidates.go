@@ -263,7 +263,7 @@ func getFilteredCandidates(candidates *[]Candidate, searchText string) *[]Filter
 			})
 		}
 	} else {
-		lowerSearchText := strings.ToLower(searchText)
+		lowerSearchText := strings.ReplaceAll(strings.ToLower(searchText), " ", "")
 
 		if lowerSearchText == "/" {
 			for _, c := range *candidates {
