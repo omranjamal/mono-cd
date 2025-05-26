@@ -30,16 +30,16 @@ curl -L "https://github.com/omranjamal/mono-cd/releases/latest/download/install.
 ## Usage
 
 ```bash
-# interactive mode:
+# interactive mode
 mcd
 
-# non interactive `cd` if only one match is present.
+# non interactive `cd` if there is only one match
 mcd [search]
 ```
 
 - `Up` / `Down` to select a directory.
 - Starting typing to filter list of directories.
-- Vim keybindings are also available, i.e. `Ctrl`+`N`/`P` is save as `Up` and `Down`
+- Vim keybindings are also available, i.e. `Ctrl`+`N`/`P` is the same as `Up` and `Down`
 
 
 ### The `.monocdrc.json` File (Optional)
