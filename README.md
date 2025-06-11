@@ -10,7 +10,7 @@ The quickest way to `cd` into a workspace folder inside a JavaScript monorepo. I
 
 ## Sponsors
 
-[![AirState: Build Realtime Apps Faster](https://static.airstate.dev/github-realtime-badge.png?_=1)](https://airstate.dev/?from=omranjamal/mono-cd)
+[![AirState: Build Realtime Apps Faster](https://static.airstate.dev/github-realtime-badge.svg?_=1)](https://airstate.dev/?from=omranjamal/mono-cd)
 
 ## Features
 
