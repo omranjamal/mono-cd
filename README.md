@@ -1,3 +1,11 @@
+## Speical Thanks To
+
+[![AirState: Build Realtime Apps Faster](https://static.airstate.dev/github-realtime-badge.svg?_=1)](https://airstate.dev/?from=monocd-image)  
+Visit [airstate.dev](https://airstate.dev/?from=monocd-link) to learn more.
+
+---
+
+
 # mono-cd
 
 ![GitHub Release Date](https://img.shields.io/github/release-date/omranjamal/mono-cd)
@@ -7,10 +15,6 @@
 The quickest way to `cd` into a workspace folder inside a JavaScript monorepo. It's simpler than [fzf](https://github.com/junegunn/fzf), more predictable than [zoxide](https://github.com/ajeetdsouza/zoxide) (`zi`), and specifically created for JavaScript monorepos.
 
 ![DEMO](https://raw.githubusercontent.com/omranjamal/mono-cd/refs/heads/static/demo.gif)
-
-## Sponsors
-
-[![AirState: Build Realtime Apps Faster](https://static.airstate.dev/github-realtime-badge.svg?_=1)](https://airstate.dev/?from=omranjamal/mono-cd)
 
 ## Features
 
