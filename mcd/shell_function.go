@@ -8,4 +8,11 @@ mcd() {
     cd "${TARGETPATH}"
   fi
 }
+
+if [ -n "${ZSH_VERSION:-}" ] && command -v compdef >/dev/null 2>&1; then
+  _mcd() {
+    _arguments '1:search term:'
+  }
+  compdef _mcd mcd
+fi
 # end: mono-cd`
